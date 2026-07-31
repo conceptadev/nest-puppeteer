@@ -79,7 +79,11 @@ export class PdfDto extends CommonBrowserDto implements PdfOptions {
   @Max(2)
   scale?: number;
 
-  @ApiPropertyOptional({ enum: PAPER_FORMATS, description: "Paper format (case-insensitive)", default: "letter" })
+  @ApiPropertyOptional({
+    enum: PAPER_FORMATS,
+    description: "Paper format (case-insensitive)",
+    default: "letter",
+  })
   @IsOptional()
   @Transform(({ value }) => (typeof value === "string" ? value.toLowerCase() : value))
   @IsIn(PAPER_FORMATS)

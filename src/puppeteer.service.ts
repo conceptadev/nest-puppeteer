@@ -12,13 +12,14 @@ import type { ScreenshotOptions } from "./interfaces/screenshot-options.interfac
 import type { SnapshotOptions, SnapshotResult } from "./interfaces/snapshot-options.interface.js";
 import { PUPPETEER_DEFAULT_AI } from "./puppeteer.constants.js";
 import { InjectBrowser } from "./puppeteer.decorators.js";
+import { PuppeteerUnavailableError } from "./puppeteer-unavailable.error.js";
 
 @Injectable()
 export class PuppeteerService {
   private readonly logger = new Logger(PuppeteerService.name);
 
   constructor(
-    @InjectBrowser() private readonly browser: Browser,
+    @InjectBrowser() private readonly browser: Browser | null,
     @Optional()
     @Inject(PUPPETEER_DEFAULT_AI)
     private readonly defaultAi?: CustomAiConfig,
@@ -70,10 +71,10 @@ export class PuppeteerService {
         if (!element) {
           throw new Error(`Selector "${selector}" not found on page`);
         }
-        return (await element.screenshot(screenshotOpts)) as Buffer;
+        return Buffer.from(await element.screenshot(screenshotOpts));
       }
 
-      return (await page.screenshot(screenshotOpts)) as Buffer;
+      return Buffer.from(await page.screenshot(screenshotOpts));
     });
   }
 
@@ -101,23 +102,25 @@ export class PuppeteerService {
 
       const { header, footer } = await this.injectTemplateFonts(page, options);
 
-      return page.pdf({
-        displayHeaderFooter,
-        headerTemplate: header,
-        footerTemplate: footer,
-        printBackground,
-        margin,
-        pageRanges,
-        preferCSSPageSize,
-        scale,
-        format,
-        landscape,
-        width,
-        height,
-        omitBackground,
-        tagged,
-        timeout,
-      }) as Promise<Buffer>;
+      return Buffer.from(
+        await page.pdf({
+          displayHeaderFooter,
+          headerTemplate: header,
+          footerTemplate: footer,
+          printBackground,
+          margin,
+          pageRanges,
+          preferCSSPageSize,
+          scale,
+          format,
+          landscape,
+          width,
+          height,
+          omitBackground,
+          tagged,
+          timeout,
+        }),
+      );
     });
   }
 
@@ -149,16 +152,18 @@ export class PuppeteerService {
         clip,
       } = options;
 
-      const screenshot = (await page.screenshot({
-        type,
-        quality,
-        fullPage,
-        omitBackground,
-        captureBeyondViewport,
-        optimizeForSpeed,
-        clip,
-        encoding: "binary",
-      })) as Buffer;
+      const screenshot = Buffer.from(
+        await page.screenshot({
+          type,
+          quality,
+          fullPage,
+          omitBackground,
+          captureBeyondViewport,
+          optimizeForSpeed,
+          clip,
+          encoding: "binary",
+        }),
+      );
 
       return { html, screenshot };
     });
@@ -319,6 +324,9 @@ export class PuppeteerService {
     let page: Page | null = null;
 
     try {
+      if (!this.browser) {
+        throw new PuppeteerUnavailableError();
+      }
       page = await this.browser.newPage();
 
       // Viewport
@@ -381,7 +389,17 @@ export class PuppeteerService {
           this.fontRegistry && !this.fontRegistry.isEmpty()
             ? this.fontRegistry.getStyleBlock() + options.html
             : options.html;
-        await page.setContent(html, options.gotoOptions);
+        const requestedWaitUntil = options.gotoOptions?.waitUntil;
+        const contentWaitUntil = (
+          Array.isArray(requestedWaitUntil) ? requestedWaitUntil : [requestedWaitUntil]
+        ).filter(
+          (event): event is "load" | "domcontentloaded" =>
+            event === "load" || event === "domcontentloaded",
+        );
+        await page.setContent(html, {
+          ...(contentWaitUntil.length > 0 ? { waitUntil: contentWaitUntil } : {}),
+          timeout: options.gotoOptions?.timeout,
+        });
       } else {
         throw new Error('Either "url" or "html" must be provided');
       }

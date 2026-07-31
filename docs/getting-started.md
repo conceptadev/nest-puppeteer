@@ -9,7 +9,7 @@ npm install @bitwild/nest-puppeteer puppeteer
 For REST endpoints, validation, and Swagger docs (optional):
 
 ```bash
-npm install class-validator class-transformer @nestjs/swagger
+npm install class-validator class-transformer @nestjs/platform-express @nestjs/swagger
 ```
 
 ## Basic Setup
@@ -18,7 +18,7 @@ Import `PuppeteerModule` in your root module:
 
 ```ts
 import { Module } from '@nestjs/common';
-import { PuppeteerModule } from '@bitwild/nest-puppeteer';
+import { PuppeteerModule } from '@bitwild/nest-puppeteer/core';
 
 @Module({
   imports: [PuppeteerModule.forRoot()],
@@ -34,13 +34,15 @@ This launches a headless Chrome instance with sensible defaults:
 
 ## Custom Launch Options
 
-Pass any Puppeteer `LaunchOptions` directly:
+Pass Puppeteer `LaunchOptions` under `launchOptions`:
 
 ```ts
 PuppeteerModule.forRoot({
-  headless: 'shell',           // old headless mode
-  args: ['--window-size=1920,1080'],
-  timeout: 60000,
+  launchOptions: {
+    headless: 'shell',           // old headless mode
+    args: ['--window-size=1920,1080'],
+    timeout: 60000,
+  },
 })
 ```
 
@@ -48,8 +50,10 @@ Custom args are **merged** with the defaults (de-duplicated). To skip defaults e
 
 ```ts
 PuppeteerModule.forRoot({
-  ignoreDefaultArgs: true,
-  args: ['--no-sandbox'],
+  launchOptions: {
+    ignoreDefaultArgs: true,
+    args: ['--no-sandbox'],
+  },
 })
 ```
 
@@ -57,7 +61,7 @@ Or filter specific defaults:
 
 ```ts
 PuppeteerModule.forRoot({
-  ignoreDefaultArgs: ['--no-zygote'],
+  launchOptions: { ignoreDefaultArgs: ['--no-zygote'] },
 })
 ```
 
@@ -67,10 +71,12 @@ When launch options depend on runtime configuration:
 
 ```ts
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { PuppeteerModule } from '@bitwild/nest-puppeteer/core';
 
 PuppeteerModule.forRootAsync({
   imports: [ConfigModule],
   useFactory: (config: ConfigService) => ({
+    enabled: config.get('PUPPETEER_ENABLED', true),
     launchOptions: {
       headless: config.get('PUPPETEER_HEADLESS', true),
       executablePath: config.get('CHROME_PATH'),
@@ -79,6 +85,9 @@ PuppeteerModule.forRootAsync({
   inject: [ConfigService],
 })
 ```
+
+When `enabled` is false, the module does not launch Chromium. `PuppeteerService` remains
+injectable, and browser operations reject with `PuppeteerUnavailableError`.
 
 ### Factory class pattern
 
@@ -104,7 +113,9 @@ PuppeteerModule.forRootAsync({
 
 ## Global Module
 
-The module is **global** by default via `@Global()` on the core module. This means `PuppeteerService`, `Browser`, `BrowserContext`, and `Page` are available for injection in any module without re-importing.
+The service-only module is global by default. This makes `PuppeteerService` and the browser
+provider available without re-importing the module. The root REST entry additionally registers
+the low-level default `BrowserContext` and `Page` providers.
 
 To register as non-global:
 
