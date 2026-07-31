@@ -38,6 +38,7 @@ jobs:
       - uses: actions/setup-node@v5
         with:
           node-version: ${{ matrix.node }}
+          package-manager-cache: false
       - uses: pnpm/action-setup@v4
         if: matrix.node != 20
       - run: pnpm install --frozen-lockfile
