@@ -61,10 +61,10 @@
     "format": "biome format --write src/ test/ scripts/ tsup.config.ts",
     "format:check": "biome format src/ test/ scripts/ tsup.config.ts",
     "typecheck": "tsc --noEmit",
-    "test": "pnpm run build && node --test test/*.test.mjs",
+    "test": "npm run build && node --test test/*.test.mjs",
     "check": "pnpm run lint && pnpm run format:check && pnpm run typecheck && pnpm run test",
     "verify:pack": "pnpm run build && publint --strict && attw --pack . --profile node16 && node scripts/test-packed-core.mjs",
-    "prepack": "pnpm run build",
+    "prepack": "npm run build",
     "changeset": "changeset",
     "release": "changeset publish"
   },
