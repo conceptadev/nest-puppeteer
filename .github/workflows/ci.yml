@@ -45,6 +45,8 @@ jobs:
         if: matrix.node != 20
       - run: pnpm run test
         if: matrix.node != 20
+      - run: npm pkg set devDependencies.puppeteer=24.43.1
+        if: matrix.node == 20
       - run: npm install --ignore-scripts --legacy-peer-deps --no-audit --no-fund
         if: matrix.node == 20
       - run: npm test
