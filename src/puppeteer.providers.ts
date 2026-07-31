@@ -10,7 +10,7 @@ export function createPuppeteerProviders(
 ): Provider[] {
   return pages.map((page) => ({
     provide: getPageToken(page),
-    useFactory: (context: BrowserContext) => context.newPage(),
+    useFactory: (context: BrowserContext | null) => context?.newPage() ?? null,
     inject: [getContextToken(instanceName)],
   }));
 }

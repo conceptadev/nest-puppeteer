@@ -224,8 +224,12 @@ export class FontRegistry implements OnModuleInit {
   /** Resolves the full set of names a family should be emitted under. */
   resolveAliases(family: string): readonly string[] {
     const names = new Set<string>([family]);
-    toArray(this.config?.aliases?.[family]).forEach((name) => names.add(name));
-    toArray(this.config?.aliasResolver?.(family)).forEach((name) => names.add(name));
+    toArray(this.config?.aliases?.[family]).forEach((name) => {
+      names.add(name);
+    });
+    toArray(this.config?.aliasResolver?.(family)).forEach((name) => {
+      names.add(name);
+    });
     return [...names];
   }
 

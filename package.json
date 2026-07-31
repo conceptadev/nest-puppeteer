@@ -14,66 +14,110 @@
     "scrape"
   ],
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/btwld/nest-puppeteer.git"
+  },
+  "homepage": "https://github.com/btwld/nest-puppeteer#readme",
+  "bugs": {
+    "url": "https://github.com/btwld/nest-puppeteer/issues"
+  },
   "type": "module",
+  "sideEffects": false,
+  "packageManager": "pnpm@11.18.0",
   "main": "dist/index.cjs",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs"
-    }
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    },
+    "./core": {
+      "import": {
+        "types": "./dist/core.d.ts",
+        "default": "./dist/core.js"
+      },
+      "require": {
+        "types": "./dist/core.d.cts",
+        "default": "./dist/core.cjs"
+      }
+    },
+    "./package.json": "./package.json"
   },
-  "files": [
-    "dist"
-  ],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "tsup",
-    "lint": "biome check src/",
-    "lint:fix": "biome check --write src/",
-    "format": "biome format --write src/",
-    "format:check": "biome format src/",
-    "prepublishOnly": "npm run build"
+    "lint": "biome check src/ test/ scripts/ tsup.config.ts",
+    "lint:fix": "biome check --write src/ test/ scripts/ tsup.config.ts",
+    "format": "biome format --write src/ test/ scripts/ tsup.config.ts",
+    "format:check": "biome format src/ test/ scripts/ tsup.config.ts",
+    "typecheck": "tsc --noEmit",
+    "test": "pnpm run build && node --test test/*.test.mjs",
+    "check": "pnpm run lint && pnpm run format:check && pnpm run typecheck && pnpm run test",
+    "verify:pack": "pnpm run build && publint --strict && attw --pack . --profile node16 && node scripts/test-packed-core.mjs",
+    "prepack": "pnpm run build",
+    "changeset": "changeset",
+    "release": "changeset publish"
   },
   "peerDependencies": {
-    "@nestjs/common": ">=10",
-    "@nestjs/core": ">=10",
-    "@nestjs/swagger": ">=7",
+    "@nestjs/common": "^10.0.0 || ^11.0.0 || >=12.0.0-alpha.1 <13",
+    "@nestjs/core": "^10.0.0 || ^11.0.0 || >=12.0.0-alpha.1 <13",
+    "@nestjs/platform-express": "^10.0.0 || ^11.0.0 || >=12.0.0-alpha.1 <13",
+    "@nestjs/swagger": ">=7 <12 || >=12.0.0-alpha.1 <13",
     "class-transformer": ">=0.5",
     "class-validator": ">=0.14",
-    "puppeteer": ">=22"
+    "puppeteer": ">=22 <26",
+    "reflect-metadata": "^0.2.2",
+    "rxjs": "^7.8.0"
   },
   "peerDependenciesMeta": {
-    "class-validator": {
+    "@nestjs/platform-express": {
+      "optional": true
+    },
+    "@nestjs/swagger": {
       "optional": true
     },
     "class-transformer": {
       "optional": true
     },
-    "@nestjs/swagger": {
+    "class-validator": {
       "optional": true
     }
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.4.10",
-    "@nestjs/common": "^11.0.0",
-    "@nestjs/core": "^11.0.0",
-    "@nestjs/platform-express": "^11.1.18",
-    "@nestjs/swagger": "^11.2.6",
-    "@nestjs/testing": "^11.0.0",
-    "@swc/core": "^1.15.24",
-    "@types/multer": "^2.1.0",
-    "@types/node": "^22.0.0",
-    "class-transformer": "^0.5.1",
-    "class-validator": "^0.15.1",
-    "puppeteer": "^24.0.0",
-    "reflect-metadata": "^0.2.2",
-    "rxjs": "^7.8.0",
-    "tsup": "^8.5.0",
-    "typescript": "^5.8.0"
+    "@arethetypeswrong/cli": "0.18.5",
+    "@biomejs/biome": "2.4.10",
+    "@changesets/cli": "2.31.1",
+    "@nestjs/common": "12.0.0-alpha.5",
+    "@nestjs/core": "12.0.0-alpha.5",
+    "@nestjs/platform-express": "12.0.0-alpha.5",
+    "@nestjs/swagger": "12.0.0-alpha.2",
+    "@nestjs/testing": "12.0.0-alpha.5",
+    "@swc/core": "1.15.24",
+    "@types/multer": "2.1.0",
+    "@types/node": "24.13.3",
+    "class-transformer": "0.5.1",
+    "class-validator": "0.15.1",
+    "publint": "0.3.22",
+    "puppeteer": "25.3.0",
+    "reflect-metadata": "0.2.2",
+    "rxjs": "7.8.2",
+    "tsup": "8.5.0",
+    "typescript": "5.9.3"
   },
   "engines": {
     "node": ">=20"
-  }
+  },
+  "files": [
+    "dist"
+  ]
 }

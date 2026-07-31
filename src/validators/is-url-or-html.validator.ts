@@ -11,7 +11,7 @@ import {
  * Uses `always: true` so it runs even when the property is absent/undefined.
  */
 export function IsUrlOrHtml(validationOptions?: ValidationOptions) {
-  return function (object: object, propertyName: string) {
+  return (object: object, propertyName: string) => {
     registerDecorator({
       name: "isUrlOrHtml",
       target: object.constructor,

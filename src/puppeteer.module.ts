@@ -31,6 +31,7 @@ export class PuppeteerModule {
    */
   static forRoot(
     options?: LaunchOptions & {
+      enabled?: boolean;
       isGlobal?: boolean;
       rest?: PuppeteerRestOptions;
       defaultAi?: CustomAiConfig;
@@ -41,6 +42,7 @@ export class PuppeteerModule {
     instanceName?: string,
   ): DynamicModule {
     const {
+      enabled,
       isGlobal,
       rest,
       defaultAi,
@@ -52,20 +54,23 @@ export class PuppeteerModule {
     const effectiveLaunchOptions =
       Object.keys(launchOptions).length > 0 ? launchOptions : undefined;
 
+    const coreModule = PuppeteerCoreModule.forRoot(
+      effectiveLaunchOptions,
+      instanceName,
+      rest,
+      defaultAi,
+      fontsDir,
+      fontAliases,
+      fontAliasResolver,
+      enabled,
+      isGlobal ?? true,
+    );
+
     return {
       module: PuppeteerModule,
       global: isGlobal,
-      imports: [
-        PuppeteerCoreModule.forRoot(
-          effectiveLaunchOptions,
-          instanceName,
-          rest,
-          defaultAi,
-          fontsDir,
-          fontAliases,
-          fontAliasResolver,
-        ),
-      ],
+      imports: [coreModule],
+      exports: [coreModule],
     };
   }
 
@@ -86,10 +91,12 @@ export class PuppeteerModule {
    * })
    */
   static forRootAsync(options: PuppeteerModuleAsyncOptions): DynamicModule {
+    const coreModule = PuppeteerCoreModule.forRootAsync(options);
     return {
       module: PuppeteerModule,
       global: options.isGlobal,
-      imports: [PuppeteerCoreModule.forRootAsync(options)],
+      imports: [coreModule],
+      exports: [coreModule],
     };
   }
 

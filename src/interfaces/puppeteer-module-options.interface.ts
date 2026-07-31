@@ -29,6 +29,17 @@ export interface PuppeteerRestOptions {
 }
 
 export interface PuppeteerModuleOptions {
+  /**
+   * Whether this module should launch Chromium.
+   *
+   * Disabled modules still register `PuppeteerService`, which lets applications keep a stable
+   * dependency graph in environments where Chromium is intentionally unavailable. Browser
+   * operations reject with `PuppeteerUnavailableError` until the module is enabled.
+   *
+   * @default true
+   */
+  enabled?: boolean;
+
   launchOptions?: LaunchOptions;
   isGlobal?: boolean;
 

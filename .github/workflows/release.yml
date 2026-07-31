@@ -1,0 +1,62 @@
+name: Release
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+  id-token: write
+
+concurrency: release-${{ github.ref }}
+
+env:
+  PUPPETEER_SKIP_DOWNLOAD: "true"
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    environment: release
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - uses: pnpm/action-setup@v4
+      # Do not set registry-url: npm Trusted Publishing uses OIDC.
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+          cache: pnpm
+      - name: Assert pnpm supports native OIDC publishing
+        run: |
+          node -e '
+            const [major, minor] = require("child_process")
+              .execSync("pnpm --version").toString().trim().split(".").map(Number);
+            if (major < 11 || (major === 11 && minor < 11)) {
+              throw new Error("pnpm >= 11.11 required for OIDC trusted publishing");
+            }
+          '
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run check
+      - run: pnpm run verify:pack
+      - name: Create release PR or publish to npm
+        id: changesets
+        uses: changesets/action@v1
+        with:
+          publish: pnpm run release
+          version: pnpm changeset version
+          title: "chore: release @bitwild/nest-puppeteer"
+          commit: "chore: release @bitwild/nest-puppeteer"
+          createGithubReleases: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Reconcile git tag with npm
+        if: always()
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          TAG="@bitwild/nest-puppeteer@$VERSION"
+          if npm view "@bitwild/nest-puppeteer@$VERSION" version > /dev/null 2>&1; then
+            git tag "$TAG" 2> /dev/null && git push origin "$TAG" || true
+          fi

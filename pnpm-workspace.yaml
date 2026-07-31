@@ -1,0 +1,19 @@
+packages:
+  - "."
+
+# Nest 12 alphas still declare Nest 11 ranges for some sibling packages.
+peerDependencyRules:
+  allowedVersions:
+    "@nestjs/common": "12"
+    "@nestjs/core": "12"
+    "@nestjs/platform-express": "12"
+
+allowBuilds:
+  "@nestjs/core": false
+  "@scarf/scarf": false
+  "@swc/core": true
+  esbuild: true
+  puppeteer: false
+
+# Make a failed npm provenance attestation a hard publish error.
+provenance: true

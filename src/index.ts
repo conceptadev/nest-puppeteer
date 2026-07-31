@@ -60,6 +60,12 @@ export {
   type SnapshotBrowserModuleOptions,
   SnapshotBrowserService,
 } from "./features/index.js";
+// Font registry
+export {
+  type FontConfig,
+  FontRegistry,
+  parseFontVariant,
+} from "./font-registry.service.js";
 // Interfaces
 export type {
   AuthenticateOptions,
@@ -118,13 +124,6 @@ export {
   PUPPETEER_REST_OPTIONS,
 } from "./puppeteer.constants.js";
 
-// Font registry
-export {
-  type FontConfig,
-  FontRegistry,
-  parseFontVariant,
-} from "./font-registry.service.js";
-
 // Controller
 export { createPuppeteerController } from "./puppeteer.controller.js";
 export { InjectBrowser, InjectContext, InjectPage } from "./puppeteer.decorators.js";
@@ -138,7 +137,6 @@ export {
   createMockPuppeteerProviders,
   type MockPuppeteerOptions,
 } from "./puppeteer.testing.js";
-
 // Utils
 export { getBrowserToken, getContextToken, getPageToken } from "./puppeteer.util.js";
 export { PuppeteerCoreModule } from "./puppeteer-core.module.js";
@@ -147,3 +145,4 @@ export { BrowserRenderingExceptionFilter } from "./puppeteer-exception.filter.js
 // Guards, Interceptors, Filters & Decorators
 export { Feature, PuppeteerFeatureGuard } from "./puppeteer-feature.guard.js";
 export { BrowserRenderingInterceptor, ResultKey } from "./puppeteer-response.interceptor.js";
+export { PuppeteerUnavailableError } from "./puppeteer-unavailable.error.js";

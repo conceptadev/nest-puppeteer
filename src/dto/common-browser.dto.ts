@@ -1,5 +1,5 @@
 import { ApiPropertyOptional } from "@nestjs/swagger";
-import { Expose, Type } from "class-transformer";
+import { Type } from "class-transformer";
 import {
   IsArray,
   IsBoolean,
@@ -9,9 +9,6 @@ import {
   IsString,
   ValidateNested,
 } from "class-validator";
-
-import { IsUrlOrHtml } from "../validators/is-url-or-html.validator.js";
-
 import type {
   AuthenticateOptions,
   CookieParam,
@@ -22,6 +19,7 @@ import type {
   ViewportOptions,
   WaitForSelectorOptions,
 } from "../interfaces/common-options.interface.js";
+import { IsUrlOrHtml } from "../validators/is-url-or-html.validator.js";
 
 // ---------------------------------------------------------------------------
 // Nested DTOs
@@ -108,7 +106,6 @@ export class CommonBrowserDto {
   @IsString()
   @IsOptional()
   html?: string;
-
 
   @ApiPropertyOptional({ description: "HTTP Basic Auth credentials", type: AuthenticateDto })
   @IsOptional()

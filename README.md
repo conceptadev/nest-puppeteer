@@ -1,6 +1,6 @@
 # @bitwild/nest-puppeteer
 
-Puppeteer provider for NestJS with a high-level API inspired by the [Cloudflare Browser Rendering](https://developers.cloudflare.com/browser-rendering/) REST API.
+Puppeteer provider for NestJS 10, 11, and 12 with a high-level API inspired by the [Cloudflare Browser Rendering](https://developers.cloudflare.com/browser-rendering/) REST API.
 
 ## Features
 
@@ -22,7 +22,7 @@ npm install @bitwild/nest-puppeteer puppeteer
 For REST endpoints (optional):
 
 ```bash
-npm install class-validator class-transformer @nestjs/swagger
+npm install class-validator class-transformer @nestjs/platform-express @nestjs/swagger
 ```
 
 ## Quick Start
@@ -31,7 +31,7 @@ npm install class-validator class-transformer @nestjs/swagger
 
 ```ts
 import { Module } from '@nestjs/common';
-import { PuppeteerModule } from '@bitwild/nest-puppeteer';
+import { PuppeteerModule } from '@bitwild/nest-puppeteer/core';
 
 @Module({
   imports: [PuppeteerModule.forRoot()],
@@ -43,7 +43,7 @@ Then inject the service:
 
 ```ts
 import { Injectable } from '@nestjs/common';
-import { PuppeteerService } from '@bitwild/nest-puppeteer';
+import { PuppeteerService } from '@bitwild/nest-puppeteer/core';
 
 @Injectable()
 export class ReportService {
@@ -131,6 +131,37 @@ curl -X POST http://localhost:3000/browser-rendering/pdf \
 ```
 
 ### Async configuration
+
+Service-only applications should use the isolated `./core` entry. It does not load the optional
+REST, Swagger, validation, or Express dependencies:
+
+```ts
+import { Module } from '@nestjs/common';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { PuppeteerModule } from '@bitwild/nest-puppeteer/core';
+
+@Module({
+  imports: [
+    PuppeteerModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: (config: ConfigService) => ({
+        enabled: config.get('THUMBNAIL_ENABLED', false),
+        launchOptions: {
+          headless: true,
+          executablePath: config.get('CHROME_PATH'),
+        },
+      }),
+      inject: [ConfigService],
+    }),
+  ],
+})
+export class AppModule {}
+```
+
+When `enabled` is false, the module keeps `PuppeteerService` injectable without launching
+Chromium. Calling a browser operation in that state rejects with `PuppeteerUnavailableError`.
+
+The root entry adds REST endpoint support:
 
 ```ts
 import { Module } from '@nestjs/common';
