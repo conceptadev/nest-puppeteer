@@ -51,8 +51,8 @@ importers:
         specifier: 0.3.22
         version: 0.3.22
       puppeteer:
-        specifier: 25.3.0
-        version: 25.3.0
+        specifier: 25.7.0
+        version: 25.7.0
       reflect-metadata:
         specifier: 0.2.2
         version: 0.2.2
@@ -501,8 +501,8 @@ packages:
     resolution: {integrity: sha512-3uVNyGcVplhPZSLVyeIpL7+cIRn1YCSNHLG/rUIlBQMVH8YuN9++YF+5+UDIIO9RW98dujiUoTltO7RDB5bFJA==}
     engines: {node: '>=18'}
 
-  '@puppeteer/browsers@3.0.6':
-    resolution: {integrity: sha512-B/gKoqlFkzhvzsI6jo9K1cZz9o5ypviVv/xu8CwA4grZzyVwN+XfkT+tu8T1zrauuEXv6VhS2oGX+6NL95WcKA==}
+  '@puppeteer/browsers@3.2.0':
+    resolution: {integrity: sha512-LlBrE8oqGfU7b1Nk2d5Q1SbuPhZxTj0cJEMDPEws28OjNMELlflekmPPuf4FnK03x0ZRjKaYwJElUcKK4kyqJA==}
     engines: {node: '>=22.12.0'}
     hasBin: true
     peerDependencies:
@@ -829,6 +829,10 @@ packages:
     resolution: {integrity: sha512-Bq3SmSpyFHaWjPk8If9yc6svM8c56dB5BAtW4Qbw5jHTwwXXcTLoRMkpDJp6VL0XzlWaCHTXrkFURMYmD0sLqg==}
     engines: {node: '>=12'}
 
+  ansi-regex@6.3.0:
+    resolution: {integrity: sha512-WpDfL7NO6j7tH88IDBNVdUJxDh9nmCteAVW9dsep846XdwF4naCBK+/tGLX3KJgcpgMRXCFlTM2hKGoK9FsdrQ==}
+    engines: {node: '>=12'}
+
   ansi-styles@4.3.0:
     resolution: {integrity: sha512-zbB9rCJAT1rbjiVDb2hqKFHNYLxgtk8NURxZ3IZwD3F6NtxbXZQCnnSi1Lkx+IDohdPlFp222wVALIheZJQSEg==}
     engines: {node: '>=8'}
@@ -913,8 +917,8 @@ packages:
     resolution: {integrity: sha512-Qgzu8kfBvo+cA4962jnP1KkS6Dop5NS6g7R5LFYJr4b8Ub94PPQXUksCw9PvXoeXPRRddRNC5C1JQUR2SMGtnA==}
     engines: {node: '>= 14.16.0'}
 
-  chromium-bidi@16.0.1:
-    resolution: {integrity: sha512-J63PGu/9PpeCwLIcKYyzWP6yaVL5pxuBc0shlYCYM8BaAkmlwiQboXO1iNbOgSDbVklEyYFfNEcHD8oOAWacUA==}
+  chromium-bidi@17.0.2:
+    resolution: {integrity: sha512-5v9GQFhTktFvotn/OFNJBmKLKRAb6n9r0bVCwf7sHgWc3/JryK0bj1nn93L3pHFrfgcsu6Be6EWsDi+1XHTGDg==}
     engines: {node: '>=20.19.0 <22.0.0 || >=22.12.0'}
     peerDependencies:
       devtools-protocol: '*'
@@ -1015,8 +1019,8 @@ packages:
     resolution: {integrity: sha512-reYkTUJAZb9gUuZ2RvVCNhVHdg62RHnJ7WJl8ftMi4diZ6NWlciOzQN88pUhSELEwflJht4oQDv0F0BMlwaYtA==}
     engines: {node: '>=8'}
 
-  devtools-protocol@0.0.1638949:
-    resolution: {integrity: sha512-mXwg4Fqnv0WR4iuAT/gYUmctNkjILwXFHyZ+m7Ty1dfr0ezZt2U3gnrrJTfRobJTHoXf+IbuFvFITzLrLFjwJA==}
+  devtools-protocol@0.0.1666840:
+    resolution: {integrity: sha512-gCcO42XCHKEs7Ag0S7aGYsnJ7hlgrO3qderYqeiY0Eqk+0GFfuvT13IA0hHreJTa2KCdDVyGMeOhdMNmrrTjVg==}
 
   dir-glob@3.0.1:
     resolution: {integrity: sha512-WkrWp9GR4KXfKGYzOLmTuGVi1UWFfws377n9cc55/tb6DuqyF6pcQ5AbiHEshaDpY9v6oaSr2XCDidGmMwdzIA==}
@@ -1375,8 +1379,8 @@ packages:
   mlly@1.8.2:
     resolution: {integrity: sha512-d+ObxMQFmbt10sretNDytwt85VrbkhhUA/JBGm1MPaWJ65Cl4wOgLaB1NYvJSZ0Ef03MMEU/0xpPMXUIQ29UfA==}
 
-  modern-tar@0.7.7:
-    resolution: {integrity: sha512-t9VmxaqrmANnEOBhpSDI6HD192Ge48k8vmWqQQL7hSFEqHEYwZbbsu49+aKLWZeRvFs3j1pMhXOqqF4kPlvjkQ==}
+  modern-tar@0.8.4:
+    resolution: {integrity: sha512-gN54ddmyzEg10orwZ2u4OOv+bjpMWdIl5jIkodK97bMq8QBSL5c0D7YX0lT1Ooz+99S7+PvFbnxzdjgHo1r41g==}
     engines: {node: '>=18.0.0'}
 
   mri@1.2.0:
@@ -1534,12 +1538,12 @@ packages:
     resolution: {integrity: sha512-vYt7UD1U9Wg6138shLtLOvdAu+8DsC/ilFtEVHcH+wydcSpNE20AfSOduf6MkRFahL5FY7X1oU7nKVZFtfq8Fg==}
     engines: {node: '>=6'}
 
-  puppeteer-core@25.3.0:
-    resolution: {integrity: sha512-fm+wpUr2oigH1PXZvwgATrM2tYWHMDG8ASzTEe9uukCye4X5Ldx1K5BTHPFKITrIWvQQAQ256d1NpbEveBcKjA==}
+  puppeteer-core@25.7.0:
+    resolution: {integrity: sha512-wgBBj7dU5ceGyoT2PCrJpkYOhxPY8mDOmcSKZP92Cj5GgqQ3kv/UxzawnOLxiYuupe4bDf/yiQm3bzs/1nI0rQ==}
     engines: {node: '>=22.12.0'}
 
-  puppeteer@25.3.0:
-    resolution: {integrity: sha512-O1tx8S315aw8eI99HZ5ZNcVEzJ9+jKF//eO5UvfZ3cXJ6okZ5sX3Y50u7DJaM+ewEK4LqXP068tBhfRaWikj+g==}
+  puppeteer@25.7.0:
+    resolution: {integrity: sha512-zLBIYuW66SGwY7JNqGmiqeKiM92CYOs6xPibSRBPIeYGIfM1nE/8VCE8G0fGot2EfXENC4PbhktxLrQ0EK5Thg==}
     engines: {node: '>=22.12.0'}
     hasBin: true
 
@@ -1887,8 +1891,8 @@ packages:
   wrappy@1.0.2:
     resolution: {integrity: sha512-l4Sp/DRseor9wL6EvV2+TuQn63dMkPjZ/sp9XkghTEbV9KlPS1xUsZ3u7/IQO4wxtcFB4bgpQPRcR3QCvezPcQ==}
 
-  ws@8.21.1:
-    resolution: {integrity: sha512-+0NTnW77fFN/DjQi6k/Sq/Yvk4Sgajw7urW8V+asjXnRgDs9gyGkdb7EzgfhA4goXsRIZKE28fzIXBHEzhuiWw==}
+  ws@8.21.3:
+    resolution: {integrity: sha512-201TZ/kPWxoPr/OKWjquZR1SWKXcvxdH+e1xrx89b3YbmzLMFCLfnaG1HFIgWzJOEWZ7MvpK++odZufgYR50Rw==}
     engines: {node: '>=10.0.0'}
     peerDependencies:
       bufferutil: ^4.0.1
@@ -2350,9 +2354,9 @@ snapshots:
     dependencies:
       tinyexec: 1.2.4
 
-  '@puppeteer/browsers@3.0.6':
+  '@puppeteer/browsers@3.2.0':
     dependencies:
-      modern-tar: 0.7.7
+      modern-tar: 0.8.4
       yargs: 18.1.0
 
   '@rollup/rollup-android-arm-eabi@4.62.3':
@@ -2573,6 +2577,8 @@ snapshots:
 
   ansi-regex@6.2.2: {}
 
+  ansi-regex@6.3.0: {}
+
   ansi-styles@4.3.0:
     dependencies:
       color-convert: 2.0.1
@@ -2653,9 +2659,9 @@ snapshots:
     dependencies:
       readdirp: 4.1.2
 
-  chromium-bidi@16.0.1(devtools-protocol@0.0.1638949):
+  chromium-bidi@17.0.2(devtools-protocol@0.0.1666840):
     dependencies:
-      devtools-protocol: 0.0.1638949
+      devtools-protocol: 0.0.1666840
       mitt: 3.0.1
       zod: 3.25.76
 
@@ -2748,7 +2754,7 @@ snapshots:
 
   detect-indent@6.1.0: {}
 
-  devtools-protocol@0.0.1638949: {}
+  devtools-protocol@0.0.1666840: {}
 
   dir-glob@3.0.1:
     dependencies:
@@ -3120,7 +3126,7 @@ snapshots:
       pkg-types: 1.3.1
       ufo: 1.6.4
 
-  modern-tar@0.7.7: {}
+  modern-tar@0.8.4: {}
 
   mri@1.2.0: {}
 
@@ -3240,27 +3246,27 @@ snapshots:
 
   punycode@2.3.1: {}
 
-  puppeteer-core@25.3.0:
+  puppeteer-core@25.7.0:
     dependencies:
-      '@puppeteer/browsers': 3.0.6
-      chromium-bidi: 16.0.1(devtools-protocol@0.0.1638949)
-      devtools-protocol: 0.0.1638949
+      '@puppeteer/browsers': 3.2.0
+      chromium-bidi: 17.0.2(devtools-protocol@0.0.1666840)
+      devtools-protocol: 0.0.1666840
       typed-query-selector: 2.12.2
       webdriver-bidi-protocol: 0.4.2
-      ws: 8.21.1
+      ws: 8.21.3
     transitivePeerDependencies:
       - bufferutil
       - proxy-agent
       - utf-8-validate
       - yauzl
 
-  puppeteer@25.3.0:
+  puppeteer@25.7.0:
     dependencies:
-      '@puppeteer/browsers': 3.0.6
-      chromium-bidi: 16.0.1(devtools-protocol@0.0.1638949)
-      devtools-protocol: 0.0.1638949
+      '@puppeteer/browsers': 3.2.0
+      chromium-bidi: 17.0.2(devtools-protocol@0.0.1666840)
+      devtools-protocol: 0.0.1666840
       lilconfig: 3.1.3
-      puppeteer-core: 25.3.0
+      puppeteer-core: 25.7.0
       typed-query-selector: 2.12.2
     transitivePeerDependencies:
       - bufferutil
@@ -3479,7 +3485,7 @@ snapshots:
 
   strip-ansi@7.2.0:
     dependencies:
-      ansi-regex: 6.2.2
+      ansi-regex: 6.3.0
 
   strip-bom@3.0.0: {}
 
@@ -3650,7 +3656,7 @@ snapshots:
 
   wrappy@1.0.2: {}
 
-  ws@8.21.1: {}
+  ws@8.21.3: {}
 
   y18n@5.0.8: {}
 
