@@ -6,7 +6,7 @@ import {
   PuppeteerModule,
   PdfBrowserModule,
   ScreenshotBrowserModule,
-} from "@concepta/nestjs-puppeteer";
+} from "@concepta/puppeteer-nest";
 
 const currentDirectory = fileURLToPath(new URL(".", import.meta.url));
 
