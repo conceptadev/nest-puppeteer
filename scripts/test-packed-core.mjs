@@ -26,20 +26,7 @@ try {
       PuppeteerModule,
       PuppeteerService,
       type ScreenshotOptions,
-    } from "@bitwild/nest-puppeteer/core";
-
-    PuppeteerModule.forRoot({ enabled: false });
-    export const screenshot = (service: PuppeteerService, options: ScreenshotOptions) =>
-      service.screenshot(options);
-    `,
-  );
-  await writeFile(
-    join(temporaryDirectory, "consumer.cts"),
-    `import {
-      PuppeteerModule,
-      type PuppeteerService,
-      type ScreenshotOptions,
-    } from "@bitwild/nest-puppeteer/core";
+    } from "@concepta/nestjs-puppeteer/core";
 
     PuppeteerModule.forRoot({ enabled: false });
     export const screenshot = (service: PuppeteerService, options: ScreenshotOptions) =>
@@ -57,7 +44,7 @@ try {
         target: "ES2023",
         types: ["node"],
       },
-      include: ["consumer.mts", "consumer.cts"],
+      include: ["consumer.mts"],
     }),
   );
 
@@ -70,27 +57,26 @@ try {
       "--no-audit",
       "--no-fund",
       join(temporaryDirectory, tarball),
-      "@nestjs/common@12.0.0-alpha.5",
-      "@nestjs/core@12.0.0-alpha.5",
-      "@standard-schema/spec@1.1.0",
-      "@types/node@24.13.3",
-      "puppeteer@25.3.0",
+      "@nestjs/common@12.0.1",
+      "@nestjs/core@12.0.1",
+      "@types/node@26.4.1",
+      "puppeteer@25.10.0",
       "reflect-metadata@0.2.2",
       "rxjs@7.8.2",
-      "typescript@6.0.3",
+      "typescript@7.0.2",
     ],
     {
       cwd: temporaryDirectory,
-      env: { ...process.env, PUPPETEER_SKIP_DOWNLOAD: "true" },
+      env: {
+        ...process.env,
+        PUPPETEER_SKIP_DOWNLOAD: "true",
+        npm_config_cache: join(temporaryDirectory, ".npm-cache"),
+      },
       stdio: "inherit",
     },
   );
 
-  execFileSync(process.execPath, ["--input-type=module", "--eval", "await import('@bitwild/nest-puppeteer/core')"], {
-    cwd: temporaryDirectory,
-    stdio: "inherit",
-  });
-  execFileSync(process.execPath, ["--input-type=commonjs", "--eval", "require('@bitwild/nest-puppeteer/core')"], {
+  execFileSync(process.execPath, ["--input-type=module", "--eval", "await import('@concepta/nestjs-puppeteer/core')"], {
     cwd: temporaryDirectory,
     stdio: "inherit",
   });

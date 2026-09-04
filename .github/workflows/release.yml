@@ -20,43 +20,35 @@ jobs:
     runs-on: ubuntu-latest
     environment: release
     steps:
-      - uses: actions/checkout@v5
-        with:
-          fetch-depth: 0
-      - uses: pnpm/action-setup@v4
-      # Do not set registry-url: npm Trusted Publishing uses OIDC.
-      - uses: actions/setup-node@v5
-        with:
-          node-version: 24
-          cache: pnpm
-      - name: Assert pnpm supports native OIDC publishing
-        run: |
-          node -e '
-            const [major, minor] = require("child_process")
-              .execSync("pnpm --version").toString().trim().split(".").map(Number);
-            if (major < 11 || (major === 11 && minor < 11)) {
-              throw new Error("pnpm >= 11.11 required for OIDC trusted publishing");
-            }
-          '
+      - uses: actions/checkout@v7
+        with: { fetch-depth: 0 }
+      - uses: pnpm/setup@v2
+        with: { install: false }
+      # Do not set registry-url: npm Trusted Publishing uses the job's OIDC token.
+      - uses: actions/setup-node@v7
+        with: { node-version: 24, cache: pnpm }
+      - name: Require pnpm with native OIDC publishing
+        run: >-
+          node -e 'const [a,b]=require("child_process").execSync("pnpm --version").toString().trim().split(".").map(Number);if(a<11||(a===11&&b<11))throw new Error("pnpm >=11.11 required")'
       - run: pnpm install --frozen-lockfile
-      - run: pnpm run check
-      - run: pnpm run verify:pack
-      - name: Create release PR or publish to npm
+      - run: pnpm run verify
+      - name: Create release PR or publish
         id: changesets
-        uses: changesets/action@v1
+        uses: changesets/action@8488615a623b1b9c987934bb89eae8af6a946ac1 # v2.1.1
         with:
-          publish: pnpm run release
-          version: pnpm changeset version
-          title: "chore: release @bitwild/nest-puppeteer"
-          commit: "chore: release @bitwild/nest-puppeteer"
-          createGithubReleases: true
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          publish-script: pnpm run release
+          version-script: pnpm run version-packages
+          pr-title: "chore: release @concepta/nestjs-puppeteer"
+          commit-message: "chore: release @concepta/nestjs-puppeteer"
+          create-github-releases: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Reconcile git tag with npm
-        if: always()
+        if: steps.changesets.outputs.published == 'true'
         run: |
           VERSION=$(node -p "require('./package.json').version")
-          TAG="@bitwild/nest-puppeteer@$VERSION"
-          if npm view "@bitwild/nest-puppeteer@$VERSION" version > /dev/null 2>&1; then
+          TAG="@concepta/nestjs-puppeteer@$VERSION"
+          if npm view "@concepta/nestjs-puppeteer@$VERSION" version > /dev/null 2>&1; then
             git tag "$TAG" 2> /dev/null && git push origin "$TAG" || true
           fi

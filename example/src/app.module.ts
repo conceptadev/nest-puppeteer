@@ -1,18 +1,21 @@
 import { join } from "node:path";
+import { fileURLToPath } from "node:url";
 
 import { Module } from "@nestjs/common";
 import {
   PuppeteerModule,
   PdfBrowserModule,
   ScreenshotBrowserModule,
-} from "@bitwild/nest-puppeteer";
+} from "@concepta/nestjs-puppeteer";
+
+const currentDirectory = fileURLToPath(new URL(".", import.meta.url));
 
 @Module({
   imports: [
     PuppeteerModule.forRoot({
       headless: true,
       args: ["--no-sandbox", "--disable-setuid-sandbox"],
-      fontsDir: join(__dirname, "..", "test-fonts"),
+      fontsDir: join(currentDirectory, "..", "test-fonts"),
       fontAliases: { TestSans: "Test Sans" },
       rest: {
         prefix: "browser-rendering",

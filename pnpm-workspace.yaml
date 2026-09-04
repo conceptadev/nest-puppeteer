@@ -1,19 +1,20 @@
 packages:
   - "."
 
-# Nest 12 alphas still declare Nest 11 ranges for some sibling packages.
-peerDependencyRules:
-  allowedVersions:
-    "@nestjs/common": "12"
-    "@nestjs/core": "12"
-    "@nestjs/platform-express": "12"
-
 allowBuilds:
   "@nestjs/core": false
   "@scarf/scarf": false
-  "@swc/core": true
-  esbuild: true
+  "@swc/core": false
+  esbuild: false
   puppeteer: false
 
-# Make a failed npm provenance attestation a hard publish error.
+minimumReleaseAgeExclude:
+  - '@changesets/apply-release-plan@8.1.0'
+  - '@changesets/cli@3.0.2'
+  - '@changesets/git@4.0.1'
+  - '@changesets/read@1.0.1'
+  - tsdown@0.23.0
+
+# A failed npm OIDC attestation must fail rather than silently publishing
+# without provenance.
 provenance: true

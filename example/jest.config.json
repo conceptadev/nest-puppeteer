@@ -1,5 +1,6 @@
 {
   "moduleFileExtensions": ["js", "json", "ts"],
+  "extensionsToTreatAsEsm": [".ts"],
   "rootDir": ".",
   "testRegex": ".*\\.spec\\.ts$",
   "transform": {
@@ -9,6 +10,7 @@
   "testTimeout": 60000,
   "moduleDirectories": ["node_modules"],
   "moduleNameMapper": {
+    "^(\\.{1,2}/.*)\\.js$": "$1",
     "^@nestjs/common(.*)$": "<rootDir>/node_modules/@nestjs/common$1",
     "^@nestjs/core(.*)$": "<rootDir>/node_modules/@nestjs/core$1",
     "^@nestjs/swagger(.*)$": "<rootDir>/node_modules/@nestjs/swagger$1",

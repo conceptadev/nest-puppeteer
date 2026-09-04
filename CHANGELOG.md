@@ -1,4 +1,4 @@
-# @bitwild/nest-puppeteer
+# @concepta/nestjs-puppeteer
 
 ## 0.0.10
 

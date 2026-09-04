@@ -1,6 +1,6 @@
 import { INestApplication } from "@nestjs/common";
 import { Test } from "@nestjs/testing";
-import { AppModule } from "../src/app.module";
+import { AppModule } from "../src/app.module.js";
 
 /**
  * Creates and initializes a NestJS test app.
