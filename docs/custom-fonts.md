@@ -8,7 +8,7 @@ Point `PuppeteerModule` at a folder of font files at boot. On startup the librar
 
 ```ts
 import { join } from 'node:path';
-import { PuppeteerModule } from '@concepta/puppeteer-nest';
+import { PuppeteerModule } from 'puppeteer-nest';
 
 PuppeteerModule.forRoot({
   fontsDir: join(process.cwd(), 'assets', 'fonts'),

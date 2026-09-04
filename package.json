@@ -1,5 +1,5 @@
 {
-  "name": "@concepta/puppeteer-nest",
+  "name": "puppeteer-nest",
   "version": "0.1.0",
   "description": "Puppeteer integration for NestJS 12 with a Cloudflare Browser Rendering-style API",
   "keywords": [

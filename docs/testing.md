@@ -9,7 +9,7 @@ import { Test } from '@nestjs/testing';
 import {
   createMockPuppeteerProviders,
   PuppeteerService,
-} from '@concepta/puppeteer-nest';
+} from 'puppeteer-nest';
 
 describe('InvoiceService', () => {
   let invoiceService: InvoiceService;
@@ -92,7 +92,7 @@ import {
   PdfBrowserService,
   PuppeteerService,
   createMockPuppeteerProviders,
-} from '@concepta/puppeteer-nest';
+} from 'puppeteer-nest';
 
 describe('PdfBrowserService', () => {
   let pdfService: PdfBrowserService;
@@ -125,7 +125,7 @@ For integration tests that need a real browser:
 import { Test } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
-import { PuppeteerModule } from '@concepta/puppeteer-nest';
+import { PuppeteerModule } from 'puppeteer-nest';
 
 describe('Browser Rendering API (e2e)', () => {
   let app: INestApplication;

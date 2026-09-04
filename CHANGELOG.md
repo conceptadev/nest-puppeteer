@@ -1,4 +1,4 @@
-# @concepta/puppeteer-nest
+# puppeteer-nest
 
 ## 0.1.0
 

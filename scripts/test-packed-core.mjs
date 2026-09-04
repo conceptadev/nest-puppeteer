@@ -26,7 +26,7 @@ try {
       PuppeteerModule,
       PuppeteerService,
       type ScreenshotOptions,
-    } from "@concepta/puppeteer-nest/core";
+    } from "puppeteer-nest/core";
 
     PuppeteerModule.forRoot({ enabled: false });
     export const screenshot = (service: PuppeteerService, options: ScreenshotOptions) =>
@@ -76,7 +76,7 @@ try {
     },
   );
 
-  execFileSync(process.execPath, ["--input-type=module", "--eval", "await import('@concepta/puppeteer-nest/core')"], {
+  execFileSync(process.execPath, ["--input-type=module", "--eval", "await import('puppeteer-nest/core')"], {
     cwd: temporaryDirectory,
     stdio: "inherit",
   });
