@@ -39,8 +39,8 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           publish-script: pnpm run release
           version-script: pnpm run version-packages
-          pr-title: "chore: release @concepta/nestjs-puppeteer"
-          commit-message: "chore: release @concepta/nestjs-puppeteer"
+          pr-title: "chore: release @concepta/puppeteer-nest"
+          commit-message: "chore: release @concepta/puppeteer-nest"
           create-github-releases: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -48,7 +48,7 @@ jobs:
         if: steps.changesets.outputs.published == 'true'
         run: |
           VERSION=$(node -p "require('./package.json').version")
-          TAG="@concepta/nestjs-puppeteer@$VERSION"
-          if npm view "@concepta/nestjs-puppeteer@$VERSION" version > /dev/null 2>&1; then
+          TAG="@concepta/puppeteer-nest@$VERSION"
+          if npm view "@concepta/puppeteer-nest@$VERSION" version > /dev/null 2>&1; then
             git tag "$TAG" 2> /dev/null && git push origin "$TAG" || true
           fi

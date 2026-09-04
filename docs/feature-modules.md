@@ -22,7 +22,7 @@ Use when this is the only Puppeteer feature in your app. Launches the browser in
 
 ```ts
 import { Module } from '@nestjs/common';
-import { PdfBrowserModule } from '@concepta/nestjs-puppeteer';
+import { PdfBrowserModule } from '@concepta/puppeteer-nest';
 import { AuthGuard } from './auth.guard';
 
 @Module({
@@ -94,7 +94,7 @@ PdfBrowserModule.register({
 
 ```ts
 import { Injectable } from '@nestjs/common';
-import { PdfBrowserService } from '@concepta/nestjs-puppeteer';
+import { PdfBrowserService } from '@concepta/puppeteer-nest';
 
 @Injectable()
 export class InvoiceService {
@@ -175,7 +175,7 @@ import {
   ScreenshotBrowserModule,
   ContentBrowserModule,
   ScrapeBrowserModule,
-} from '@concepta/nestjs-puppeteer';
+} from '@concepta/puppeteer-nest';
 import { AuthGuard } from './auth.guard';
 
 @Module({

@@ -1,4 +1,4 @@
-# @concepta/nestjs-puppeteer
+# @concepta/puppeteer-nest
 
 ## 0.1.0
 
