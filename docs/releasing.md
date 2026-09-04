@@ -4,7 +4,7 @@ Releases use Changesets and npm trusted publishing. No long-lived npm token is s
 
 ## One-time npm setup
 
-`@concepta/puppeteer-nest` is a new npm package name. A Concepta maintainer must bootstrap it
+`puppeteer-nest` is a new npm package name. A maintainer must bootstrap it
 once before OIDC can take over:
 
 ```bash
@@ -15,7 +15,7 @@ npm publish --access public
 Then configure the trusted GitHub publisher from an authenticated npm CLI:
 
 ```bash
-npm trust github @concepta/puppeteer-nest \
+npm trust github puppeteer-nest \
   --repo conceptadev/nest-puppeteer \
   --file release.yml \
   --environment release \

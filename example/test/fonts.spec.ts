@@ -1,5 +1,5 @@
 import { INestApplication } from "@nestjs/common";
-import { FontRegistry, PuppeteerService, parseFontVariant } from "@concepta/puppeteer-nest";
+import { FontRegistry, PuppeteerService, parseFontVariant } from "puppeteer-nest";
 import request from "supertest";
 import { createTestApp } from "./setup.js";
 
