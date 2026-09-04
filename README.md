@@ -2,7 +2,7 @@
 
 Puppeteer provider for NestJS 12 with a high-level API inspired by the [Cloudflare Browser Rendering](https://developers.cloudflare.com/browser-rendering/) REST API.
 
-Requires Node.js 22.13 or newer and an ESM application.
+Requires Node.js 22.18 or newer and an ESM application.
 
 ## Features
 
