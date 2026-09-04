@@ -14,7 +14,7 @@ For cases where `PuppeteerService` methods aren't enough, inject Puppeteer primi
 
 ```ts
 import { Injectable } from '@nestjs/common';
-import { InjectBrowser } from '@bitwild/nest-puppeteer';
+import { InjectBrowser } from '@concepta/nestjs-puppeteer';
 import { Browser } from 'puppeteer';
 
 @Injectable()
@@ -41,7 +41,7 @@ The default page is a singleton created at module init:
 
 ```ts
 import { Injectable } from '@nestjs/common';
-import { InjectPage } from '@bitwild/nest-puppeteer';
+import { InjectPage } from '@concepta/nestjs-puppeteer';
 import { Page } from 'puppeteer';
 
 @Injectable()
@@ -136,7 +136,7 @@ PuppeteerModule.forFeature(['scraper'], 'proxied')
 For advanced use (custom providers, testing), use the token generators:
 
 ```ts
-import { getBrowserToken, getContextToken, getPageToken } from '@bitwild/nest-puppeteer';
+import { getBrowserToken, getContextToken, getPageToken } from '@concepta/nestjs-puppeteer';
 
 getBrowserToken()            // 'DefaultPuppeteerBrowser'
 getBrowserToken('proxied')   // 'proxiedBrowser'

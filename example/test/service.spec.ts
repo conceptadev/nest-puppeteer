@@ -4,7 +4,7 @@ import {
   PuppeteerService,
   PdfBrowserService,
   PdfBrowserModule,
-} from "@bitwild/nest-puppeteer";
+} from "@concepta/nestjs-puppeteer";
 
 describe("PuppeteerService (direct injection)", () => {
   let service: PuppeteerService;

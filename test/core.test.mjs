@@ -7,8 +7,8 @@ import {
   PuppeteerModule,
   PuppeteerService,
   PuppeteerUnavailableError,
-} from "../dist/core.js";
-import { PuppeteerModule as RestPuppeteerModule } from "../dist/index.js";
+} from "../dist/core.mjs";
+import { PuppeteerModule as RestPuppeteerModule } from "../dist/index.mjs";
 
 const modules = [];
 
@@ -65,7 +65,7 @@ describe("core module", () => {
   it("keeps optional REST dependencies out of the core bundle", async () => {
     const distribution = new URL("../dist/", import.meta.url);
     const files = (await readdir(distribution)).filter(
-      (file) => file === "core.js" || (file.startsWith("chunk-") && file.endsWith(".js")),
+      (file) => file === "core.mjs" || (file.startsWith("chunk-") && file.endsWith(".mjs")),
     );
     const source = (
       await Promise.all(files.map((file) => readFile(new URL(file, distribution), "utf8")))

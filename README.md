@@ -1,6 +1,8 @@
-# @bitwild/nest-puppeteer
+# @concepta/nestjs-puppeteer
 
-Puppeteer provider for NestJS 10, 11, and 12 with a high-level API inspired by the [Cloudflare Browser Rendering](https://developers.cloudflare.com/browser-rendering/) REST API.
+Puppeteer provider for NestJS 12 with a high-level API inspired by the [Cloudflare Browser Rendering](https://developers.cloudflare.com/browser-rendering/) REST API.
+
+Requires Node.js 22.18 or newer and an ESM application.
 
 ## Features
 
@@ -16,7 +18,7 @@ Puppeteer provider for NestJS 10, 11, and 12 with a high-level API inspired by t
 ## Installation
 
 ```bash
-npm install @bitwild/nest-puppeteer puppeteer
+npm install @concepta/nestjs-puppeteer puppeteer
 ```
 
 For REST endpoints (optional):
@@ -31,7 +33,7 @@ npm install class-validator class-transformer @nestjs/platform-express @nestjs/s
 
 ```ts
 import { Module } from '@nestjs/common';
-import { PuppeteerModule } from '@bitwild/nest-puppeteer/core';
+import { PuppeteerModule } from '@concepta/nestjs-puppeteer/core';
 
 @Module({
   imports: [PuppeteerModule.forRoot()],
@@ -43,7 +45,7 @@ Then inject the service:
 
 ```ts
 import { Injectable } from '@nestjs/common';
-import { PuppeteerService } from '@bitwild/nest-puppeteer/core';
+import { PuppeteerService } from '@concepta/nestjs-puppeteer/core';
 
 @Injectable()
 export class ReportService {
@@ -73,7 +75,7 @@ Expose Cloudflare-compatible HTTP endpoints:
 
 ```ts
 import { Module } from '@nestjs/common';
-import { PuppeteerModule } from '@bitwild/nest-puppeteer';
+import { PuppeteerModule } from '@concepta/nestjs-puppeteer';
 import { AuthGuard } from './auth.guard';
 
 @Module({
@@ -138,7 +140,7 @@ REST, Swagger, validation, or Express dependencies:
 ```ts
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { PuppeteerModule } from '@bitwild/nest-puppeteer/core';
+import { PuppeteerModule } from '@concepta/nestjs-puppeteer/core';
 
 @Module({
   imports: [
@@ -166,7 +168,7 @@ The root entry adds REST endpoint support:
 ```ts
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { PuppeteerModule } from '@bitwild/nest-puppeteer';
+import { PuppeteerModule } from '@concepta/nestjs-puppeteer';
 
 @Module({
   imports: [
@@ -198,7 +200,7 @@ Pre-configured modules for individual features with their own defaults, REST end
 
 ```ts
 import { Module } from '@nestjs/common';
-import { PdfBrowserModule } from '@bitwild/nest-puppeteer';
+import { PdfBrowserModule } from '@concepta/nestjs-puppeteer';
 
 @Module({
   imports: [
@@ -226,7 +228,7 @@ import {
   PdfBrowserModule,
   ScreenshotBrowserModule,
   ScrapeBrowserModule,
-} from '@bitwild/nest-puppeteer';
+} from '@concepta/nestjs-puppeteer';
 
 @Module({
   imports: [
@@ -292,7 +294,7 @@ Inject Puppeteer primitives directly:
 
 ```ts
 import { Injectable } from '@nestjs/common';
-import { InjectBrowser, InjectPage } from '@bitwild/nest-puppeteer';
+import { InjectBrowser, InjectPage } from '@concepta/nestjs-puppeteer';
 import { Browser, Page } from 'puppeteer';
 
 @Injectable()
@@ -485,7 +487,7 @@ Use `createMockPuppeteerProviders()` to avoid launching a real browser:
 
 ```ts
 import { Test } from '@nestjs/testing';
-import { createMockPuppeteerProviders, PuppeteerService } from '@bitwild/nest-puppeteer';
+import { createMockPuppeteerProviders, PuppeteerService } from '@concepta/nestjs-puppeteer';
 
 describe('ReportService', () => {
   let service: ReportService;
@@ -529,6 +531,10 @@ PuppeteerModule.forRoot({
   ],
 })
 ```
+
+## Releasing
+
+Maintainers: see the [OIDC release process](docs/releasing.md).
 
 ## License
 

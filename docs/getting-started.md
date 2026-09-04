@@ -3,7 +3,7 @@
 ## Installation
 
 ```bash
-npm install @bitwild/nest-puppeteer puppeteer
+npm install @concepta/nestjs-puppeteer puppeteer
 ```
 
 For REST endpoints, validation, and Swagger docs (optional):
@@ -18,7 +18,7 @@ Import `PuppeteerModule` in your root module:
 
 ```ts
 import { Module } from '@nestjs/common';
-import { PuppeteerModule } from '@bitwild/nest-puppeteer/core';
+import { PuppeteerModule } from '@concepta/nestjs-puppeteer/core';
 
 @Module({
   imports: [PuppeteerModule.forRoot()],
@@ -71,7 +71,7 @@ When launch options depend on runtime configuration:
 
 ```ts
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { PuppeteerModule } from '@bitwild/nest-puppeteer/core';
+import { PuppeteerModule } from '@concepta/nestjs-puppeteer/core';
 
 PuppeteerModule.forRootAsync({
   imports: [ConfigModule],

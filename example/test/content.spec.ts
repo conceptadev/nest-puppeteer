@@ -1,6 +1,6 @@
 import { INestApplication } from "@nestjs/common";
 import request from "supertest";
-import { createTestApp } from "./setup";
+import { createTestApp } from "./setup.js";
 
 describe("POST /browser-rendering/content", () => {
   let app: INestApplication;

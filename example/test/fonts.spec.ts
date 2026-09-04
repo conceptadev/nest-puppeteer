@@ -1,7 +1,7 @@
 import { INestApplication } from "@nestjs/common";
-import { FontRegistry, PuppeteerService, parseFontVariant } from "@bitwild/nest-puppeteer";
+import { FontRegistry, PuppeteerService, parseFontVariant } from "@concepta/nestjs-puppeteer";
 import request from "supertest";
-import { createTestApp } from "./setup";
+import { createTestApp } from "./setup.js";
 
 describe("custom fonts via fontsDir", () => {
   let app: INestApplication;
