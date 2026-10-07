@@ -22,7 +22,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
         with: { fetch-depth: 0 }
-      - uses: pnpm/setup@v2
+      - uses: pnpm/setup@v3
         with: { install: false }
       # Do not set registry-url: npm Trusted Publishing uses the job's OIDC token.
       - uses: actions/setup-node@v7
